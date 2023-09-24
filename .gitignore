@@ -1,1 +1,4 @@
 .venv/
+scratch.md
+.streamlit/secrets.toml
+things-we-could-do.md

@@ -27,6 +27,7 @@ dataframe_to_string = st.cache_data(dataframe_to_string)
 
 @st.cache_data
 def prepare_data(listings) -> pd.DataFrame:
+    if len(listings) == 0: raise ValueError("Length of `listings` must be >0.")
     data = pd.DataFrame([asdict(listing) for listing in listings])
     data.drop("address", axis=1, inplace=True)
     data["availability"] = data["availability"].str.replace(":", "", regex=False)

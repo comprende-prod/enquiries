@@ -1,1 +1,0 @@
-You have been given a set of rental properties from a similarity search system. Please turn these properties into a nicely-formatted, concise, helpful email to a prospective tenant, who has emailed a property management company called Comprende.

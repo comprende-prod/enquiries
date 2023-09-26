@@ -8,20 +8,17 @@ import pandas as pd
 import streamlit as st
 import pyperclip
 from helpers import build_ensemble_retriever, get_listings, dataframe_to_string
-from constants import EMAIL_TEMPLATE, PROMPT_TEMPLATE
+from constants import EMAIL_TEMPLATE, PROMPT_TEMPLATE, SEARCH_SYSTEM_MESSAGE
 
 
 BM25_K = 7                           # k for BM25Retriever
 SIMILARITY_SCORE_THRESHOLD = 0.6     # Similarity threshold for FAISS retriever
 LLM = ChatOpenAI(model="gpt-3.5-turbo")
 os.environ["OPENAI_API_KEY"] = st.secrets["openai_api_key"]
-with open(Path("search-system-message.md"), "r") as f:
-    search_system_message = f.read()
 
 
 # Functions:
 get_listings = st.cache_resource(get_listings)
-
 
 build_ensemble_retriever = st.cache_resource(build_ensemble_retriever)
 
@@ -102,7 +99,7 @@ if tenant_email:
             docs = retriever.get_relevant_documents(query=tenant_email)
             with_search_response = qa_chain.run(
                 input_documents=docs,
-                question=search_system_message + "\n\n" + "Tenant email: " + tenant_email
+                question=SEARCH_SYSTEM_MESSAGE + "\n\n" + "Tenant email: " + tenant_email
             )
             st.write(with_search_response)
             st.button(

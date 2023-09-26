@@ -20,7 +20,7 @@ import pandas as pd
 # from trademe import search, make_url
 
 
-subprocess.check_call(["git", "clone", "https://github.com/comprende-prod/trademe.git"])
+#subprocess.check_call(["git", "clone", "https://github.com/comprende-prod/trademe.git"])
 from trademe import search, make_url
 
 os.environ["OPENAI_API_KEY"] = st.secrets["openai_api_key"]

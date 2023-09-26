@@ -1,10 +1,23 @@
 import os
+import subprocess
+import time
+import sys
 from dataclasses import asdict
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.retrievers import BM25Retriever, EnsembleRetriever
 import streamlit as st
 import pandas as pd
+
+
+# Install trademe:
+try:
+    from trademe import search, make_url
+except ModuleNotFoundError:
+    #subprocess.Popen([f'{sys.executable} -m pip install git+https://${{token}}@github.com/comprende-prod/trademe.git'], shell=True)
+    subprocess.Popen([f'{sys.executable} -m pip install git+https://github.com/comprende-prod/trademe'], shell=True)
+    time.sleep(90)
+    
 from trademe import search, make_url
 
 

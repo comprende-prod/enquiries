@@ -1,4 +1,5 @@
 .venv/
 scratch.md
-.streamlit/secrets.toml
+.streamlit/
 things-we-could-do.md
+__pycache__/

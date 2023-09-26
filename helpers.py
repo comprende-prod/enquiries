@@ -24,6 +24,7 @@ import pandas as pd
 from trademe import search, make_url
 
 os.environ["OPENAI_API_KEY"] = st.secrets["openai_api_key"]
+os.environ["TOKEN"] = st.secrets["token"]
 
 
 def get_listings():

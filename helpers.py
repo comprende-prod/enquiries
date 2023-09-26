@@ -4,6 +4,7 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.retrievers import BM25Retriever, EnsembleRetriever
 import streamlit as st
+import pandas as pd
 from trademe import search, make_url
 
 
@@ -28,6 +29,16 @@ def dataframe_to_string(data):
             output += f" - {index.capitalize()}: {value}\n" 
         output += "\n"
     return output
+
+
+def prepare_data(listings) -> pd.DataFrame:
+    if len(listings) == 0: raise ValueError("Length of `listings` must be >0.")
+    data = pd.DataFrame([asdict(listing) for listing in listings])
+    data.drop("address", axis=1, inplace=True)
+    data["availability"] = data["availability"].str.replace(":", "", regex=False)
+    data.rename({"title": "address"}, axis=1, inplace=True)
+    data.insert(0, "selected", False)
+    return data
 
 
 def build_ensemble_retriever(

@@ -4,10 +4,10 @@ from pathlib import Path
 from langchain.chains.question_answering import load_qa_chain
 from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
-import pandas as pd
 import streamlit as st
 import pyperclip
-from helpers import build_ensemble_retriever, get_listings, dataframe_to_string
+from helpers import build_ensemble_retriever, get_listings, \
+    dataframe_to_string, prepare_data
 from constants import EMAIL_TEMPLATE, PROMPT_TEMPLATE, SEARCH_SYSTEM_MESSAGE
 
 
@@ -24,16 +24,7 @@ build_ensemble_retriever = st.cache_resource(build_ensemble_retriever)
 
 dataframe_to_string = st.cache_data(dataframe_to_string)
 
-
-@st.cache_data
-def prepare_data(listings) -> pd.DataFrame:
-    if len(listings) == 0: raise ValueError("Length of `listings` must be >0.")
-    data = pd.DataFrame([asdict(listing) for listing in listings])
-    data.drop("address", axis=1, inplace=True)
-    data["availability"] = data["availability"].str.replace(":", "", regex=False)
-    data.rename({"title": "address"}, axis=1, inplace=True)
-    data.insert(0, "selected", False)
-    return data
+prepare_data = st.cache_data(prepare_data)
 
 
 # Listings + data for display

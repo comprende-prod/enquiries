@@ -16,7 +16,7 @@ try:
 except ModuleNotFoundError:
     token = st.secrets["token"]
     #subprocess.Popen([f'{sys.executable} -m pip install git+https://${token}@github.com/comprende-prod/trademe.git'], shell=True)
-    subprocess.Popen([f'{sys.executable} -m pip install git+https://github.com/comprende-prod/trademe'], shell=True)
+    subprocess.Popen([f'{sys.executable} -m pip install git+https://github.com/comprende-prod/trademe.git'], shell=True)
     time.sleep(90)
 
 from trademe import search, make_url

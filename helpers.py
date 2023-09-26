@@ -1,7 +1,5 @@
 import os
 import subprocess
-import time
-import sys
 from dataclasses import asdict
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
@@ -11,16 +9,19 @@ import pandas as pd
 
 
 # Install trademe:
-try:
-    from trademe import search, make_url
-except ModuleNotFoundError:
-    token = st.secrets["token"]
-    #subprocess.Popen([f'{sys.executable} -m pip install git+https://${token}@github.com/comprende-prod/trademe.git'], shell=True)
-    subprocess.Popen([f'{sys.executable} -m pip install git+https://github.com/comprende-prod/trademe.git'], shell=True)
-    time.sleep(90)
+# try:
+#     from trademe import search, make_url
+# except ModuleNotFoundError:
+#     token = st.secrets["token"]
+#     #subprocess.Popen([f'{sys.executable} -m pip install git+https://${token}@github.com/comprende-prod/trademe.git'], shell=True)
+#     subprocess.Popen([f'{sys.executable} -m pip install git+https://github.com/comprende-prod/trademe.git'], shell=True)
+#     time.sleep(90)
 
+# from trademe import search, make_url
+
+
+subprocess.check_call(["git", "clone", "https://github.com/comprende-prod/trademe.git"])
 from trademe import search, make_url
-
 
 os.environ["OPENAI_API_KEY"] = st.secrets["openai_api_key"]
 

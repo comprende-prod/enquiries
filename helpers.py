@@ -1,32 +1,25 @@
 import os
 import subprocess
+import time
+import sys
 from dataclasses import asdict
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.retrievers import BM25Retriever, EnsembleRetriever
 import streamlit as st
 import pandas as pd
-
-
-# Install trademe:
-# try:
-#     from trademe import search, make_url
-# except ModuleNotFoundError:
-#     token = st.secrets["token"]
-#     #subprocess.Popen([f'{sys.executable} -m pip install git+https://${token}@github.com/comprende-prod/trademe.git'], shell=True)
-#     subprocess.Popen([f'{sys.executable} -m pip install git+https://github.com/comprende-prod/trademe.git'], shell=True)
-#     time.sleep(90)
-
 # from trademe import search, make_url
 
 
-#subprocess.check_call(["git", "clone", "https://github.com/comprende-prod/trademe.git"])
-from trademe import search, make_url
-
 os.environ["OPENAI_API_KEY"] = st.secrets["openai_api_key"]
-os.environ["TOKEN"] = st.secrets["token"]
-os.environ["USERNAME"] = st.secrets["username"]
-os.environ["PASSWORD"] = st.secrets["password"]
+token = os.environ["TOKEN"] = st.secrets["token"]
+
+
+try:
+    from trademe import make_url, search
+except ModuleNotFoundError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", f"git+https://{token}@github.com/comprende-prod/trademe.git"])
+    time.sleep(90)
 
 
 def get_listings():

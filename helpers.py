@@ -8,7 +8,6 @@ from langchain.vectorstores import FAISS
 from langchain.retrievers import BM25Retriever, EnsembleRetriever
 import streamlit as st
 import pandas as pd
-# from trademe import search, make_url
 
 
 os.environ["OPENAI_API_KEY"] = st.secrets["openai_api_key"]

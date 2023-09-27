@@ -18,6 +18,7 @@ token = os.environ["TOKEN"] = st.secrets["token"]
 try:
     from trademe import make_url, search
 except ModuleNotFoundError:
+    #subprocess.check_call([sys.executable, "-m", "pip", "install", f"git+https://{token}@github.com/comprende-prod/trademe.git"])
     subprocess.check_call([sys.executable, "-m", "pip", "install", f"git+https://{token}@github.com/comprende-prod/trademe.git"])
     time.sleep(90)
 

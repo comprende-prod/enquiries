@@ -16,7 +16,7 @@ os.environ["OPENAI_API_KEY"] = st.secrets["openai_api_key"]
 
 
 # Functions:
-get_listings = st.cache_resource(get_listings)
+#get_listings = st.cache_resource(get_listings)
 
 build_ensemble_retriever = st.cache_resource(build_ensemble_retriever)
 
